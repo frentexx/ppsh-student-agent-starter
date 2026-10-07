@@ -11,7 +11,6 @@ JSON 欄位（全部文字由學生確認後才填入）：
   "period": "2026-10-07 ~ 2026-10-21",
   "tools": "Codex、ComfyUI／imagegen",
   "summary": "成果簡述（約 100 字，供課程學習成果百字簡述使用）",
-  "motivation": "學習動機與目標（1 段）",
   "process": [ {"step": "步驟標題", "prompt": "學生下的指令（可省略）", "note": "做了什麼、遇到什麼"} ],
   "results": [ {"file": "作業成果/圖片/xxx.png", "caption": "圖說"} ],
   "reflection": "學生省思（已經學生同意的版本）",
@@ -72,7 +71,7 @@ def main():
     t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     # 基本資料表
-    info = [("班級座號", spec.get("class_seat")), ("課程／活動", spec.get("course")),
+    info = [("班級座號", spec.get("class_seat")),
             ("期間", spec.get("period")), ("使用工具", spec.get("tools"))]
     info = [(k, v) for k, v in info if v]
     if info:
@@ -83,17 +82,17 @@ def main():
             row[0].text, row[1].text = k, v
             row[0].width, row[1].width = Cm(3.5), Cm(12.5)
 
+    if spec.get("course"):
+        add_heading(doc, "課程名稱")
+        doc.add_paragraph(spec["course"])
+
     if spec.get("summary"):
         add_heading(doc, "成果簡述")
         doc.add_paragraph(spec["summary"])
 
-    if spec.get("motivation"):
-        add_heading(doc, "一、學習動機與目標")
-        doc.add_paragraph(spec["motivation"])
-
     process = spec.get("process") or []
     if process:
-        add_heading(doc, "二、學習歷程")
+        add_heading(doc, "學習歷程")
         for i, p in enumerate(process, 1):
             add_heading(doc, f"{i}. {p.get('step', '')}", 2)
             if p.get("prompt"):
@@ -105,7 +104,7 @@ def main():
 
     results = spec.get("results") or []
     if results:
-        add_heading(doc, "三、成果展示")
+        add_heading(doc, "成果展示")
         for r in results:
             f = Path(r.get("file", ""))
             f = f if f.is_absolute() else project / f
@@ -124,7 +123,7 @@ def main():
                 cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     if spec.get("reflection"):
-        add_heading(doc, "四、學習省思")
+        add_heading(doc, "學習省思")
         for para in str(spec["reflection"]).split("\n"):
             if para.strip():
                 doc.add_paragraph(para.strip())

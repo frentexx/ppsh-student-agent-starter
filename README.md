@@ -6,7 +6,7 @@
 > 每個技能都是一份純文字說明書，AI 讀了就照著做——**不是程式，不需要會寫程式。**
 > ✅ 適用：**Codex Desktop**、**Claude Code**
 >
-> 搭配教學網頁：👉 **[學生 Agent 入門簡報](https://frentexx.github.io/ppsh-student-agent-intro/)**（尚未上線時連結會打不開）
+> 搭配教學網頁：👉 **[學生 Agent 入門簡報](https://frentexx.github.io/ppsh-student-agent-intro/)**
 
 ---
 

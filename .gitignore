@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+_轉文字/
+*.key
+.env
+__pycache__/
+*.pyc
